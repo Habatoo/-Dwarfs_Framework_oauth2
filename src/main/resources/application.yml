@@ -1,0 +1,82 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: dfuser
+    password: ${dbSecret}
+    url: jdbc:postgresql://localhost:5432/oauth2
+    platform: postgres
+    initialization-mode: always
+    continue-on-error: true
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 235455713239-gsfitturkangkseqjpfg5cese4atlket.apps.googleusercontent.com
+            client-secret: ${clientGoogleSecret}
+          facebook:
+            client-id: 779511356240542
+            client-secret: ${clientFacebookSecret}
+
+dwarfsframework:
+    app:
+      jwtSecret: ${dbSecret}
+      jwtExpirationMs: 172800000
+      secretKey: ${secretKey}
+      remoteAddr: ${remoteAddr}
+
+upload:
+  path: ${filesPath}
+
+facebook:
+  client:
+    clientId: 779511356240542
+    clientSecret: ${clientFacebookSecret}
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me
+google:
+  client:
+    clientId: 235455713239-gsfitturkangkseqjpfg5cese4atlket.apps.googleusercontent.com
+    clientSecret: ${clientGoogleSecret}
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope:
+      - openid
+      - email
+      - profile
+  resource:
+    userInfoUri:  https://www.googleapis.com/oauth2/v3/userinfo
+    preferTokenInfo: true
+
+#security:
+#  basic:
+#    enable: false
+#
+#  jwt:
+#    uri: /auth/**
+#    header: Authorization
+#    prefix: Bearer
+#    expiration: 86400
+#    secret: JwtSecretKey
+#
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: basic
